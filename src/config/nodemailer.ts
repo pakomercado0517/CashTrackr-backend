@@ -1,0 +1,19 @@
+import nodemailer from "nodemailer"
+import dotenv from "dotenv"
+dotenv.config()
+
+const {NODEMAILER_HOST, NODEMAILER_PORT, NODEMAILER_USER, NODEMAILER_PASS} = process.env
+
+const config = () => {
+  return {
+  host: NODEMAILER_HOST,
+  port:+NODEMAILER_PORT,
+  auth: {
+    user: NODEMAILER_USER,
+    pass: NODEMAILER_PASS
+  }
+  }
+}
+
+// Looking to send emails in production? Check out our Email API/SMTP product!
+export const transport = nodemailer.createTransport(config());

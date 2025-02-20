@@ -1,25 +1,30 @@
-import { Router } from "express";
-import { ExpensesController } from "../controllers/ExpensesController";
-import {validateExpenseBody, validateExpensetExists, validateExpensetId} from "../middlewares/expense"
-import handleInputErrors from "../middlewares/validation";
+import { Router } from 'express';
+import { ExpensesController } from '../controllers/ExpensesController';
+import {
+  belongsToBudget,
+  validateExpenseBody,
+  validateExpensetExists,
+  validateExpensetId,
+} from '../middlewares/expense';
+import handleInputErrors from '../middlewares/validation';
 
-const router = Router()
+const router = Router();
 
-router.param("expenseId", validateExpensetId)
-router.param("expenseId", validateExpensetExists)
-
+router.param('expenseId', validateExpensetId);
+router.param('expenseId', validateExpensetExists);
+router.param('expenseId', belongsToBudget);
 
 //GET Methods
-router.get("/", ExpensesController.getAll)
-router.get("/:expenseId", ExpensesController.getById)
+router.get('/', ExpensesController.getAll);
+router.get('/:expenseId', ExpensesController.getById);
 
 //POST Methods
-router.post("/", validateExpenseBody, ExpensesController.create)
+router.post('/', validateExpenseBody, ExpensesController.create);
 
 //PUT Methods
-router.put("/:expenseId", validateExpenseBody, ExpensesController.updateById)
+router.put('/:expenseId', validateExpenseBody, ExpensesController.updateById);
 
 //DELETE Methods
-router.delete("/:expenseId", ExpensesController.deleteById)
+router.delete('/:expenseId', ExpensesController.deleteById);
 
-export default router
+export default router;

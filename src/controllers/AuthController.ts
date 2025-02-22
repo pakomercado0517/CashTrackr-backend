@@ -127,11 +127,25 @@ export class AuthController {
         res.status(403).json({ error: error.message });
         return;
       }
-      res
-        .status(200)
-        .json({
-          message: 'Token correcto, ahora puedes cambiar tu contraseña',
-        });
+      res.status(200).json({
+        message: 'Token correcto, ahora puedes cambiar tu contraseña',
+      });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+
+  static updateUserData = async (req: Request, res: Response) => {
+    try {
+      const { name, email } = req.body;
+      const verifyNewEmail = await User.findOne({ where: { email } });
+      if (verifyNewEmail && verifyNewEmail.id !== req.user.id) {
+        const error = new Error('El email pertenece a otro usuario');
+        res.status(409).json({ error: error.message });
+        return;
+      }
+      await User.update({ name, email }, { where: { id: req.user.id } });
+      res.status(200).json({ message: 'Información actualizada con éxito!' });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }

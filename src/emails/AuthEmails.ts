@@ -80,7 +80,7 @@ export class AuthEmail {
             <p>Gracias por registrarte en <strong>CashTrackr</strong>. Para completar tu registro, haz clic en el siguiente botón:</p>
             <a href="${FRONTEND_URL}/auth/confirm_acount" class="button">Confirmar Cuenta</a>
             <p>Si el botón no funciona, copia y pega el siguiente enlace en tu navegador:</p>
-            <p>${FRONTEND_URL}/auth/confirm_acount</p>
+            <p>${FRONTEND_URL}/auth/confirm-acount</p>
             <p>También puedes ingresar el siguiente código de verificación:</p>
             <h3 style="color: #007bff;">${user.token}</h3>
         </div>

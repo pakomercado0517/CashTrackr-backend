@@ -30,7 +30,7 @@ export class AuthController {
         email: newUser.email,
         token: newUser.token,
       });
-      res.status(201).json({ message: 'Usuario registrado con éxito' });
+      res.status(201).json({ message: '¡Te haz registrado con éxito! 👍🏻' });
     } catch (error) {
       res.status(500).json({ error: error.message });
       return;
@@ -51,7 +51,7 @@ export class AuthController {
       await user.save();
       res
         .status(200)
-        .json({ message: 'Usuario confirmado, ya puedes iniciar sesión' });
+        .json({ message: 'Usuario confirmado, ya puedes iniciar sesión 👌🏻' });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -62,14 +62,14 @@ export class AuthController {
       const { email, password } = req.body;
       const user = await User.findOne({ where: { email } });
       if (!user) {
-        const error = new Error('Usuario no registrado en el sistema');
+        const error = new Error('Este email no existe en el sistema 😞');
         res.status(404).json({ error: error.message });
         return;
       }
 
       if (!user.confirmed) {
         const error = new Error(
-          'Necesitas confirmar tu cuenta para poder iniciar sesión'
+          'Necesitas confirmar tu cuenta para poder iniciar sesión 😅'
         );
         res.status(403).json({ error: error.message });
         return;
@@ -77,7 +77,7 @@ export class AuthController {
 
       const isValidPassword = await comparePassword(password, user.password);
       if (!isValidPassword) {
-        const error = new Error('La contraseña es incorrecta');
+        const error = new Error('La contraseña es incorrecta 🙈');
         res.status(401).json({ error: error.message });
         return;
       }
@@ -88,7 +88,9 @@ export class AuthController {
         globalThis.cashTrackrJWT = token;
       }
 
-      res.status(200).json({ message: 'Inicio de sesión correcto', token });
+      res
+        .status(200)
+        .json({ message: 'Haz iniciado sesión correctamente! ✌🏻', token });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -99,7 +101,7 @@ export class AuthController {
       const { email } = req.body;
       const user = await User.findOne({ where: { email } });
       if (!user) {
-        const error = new Error('El email no se encuentra en el sistema');
+        const error = new Error('El email no se encuentra en el sistema ⚠');
         res.status(404).json({ error: error.message });
         return;
       }
@@ -165,7 +167,11 @@ export class AuthController {
       user.password = await hashPassword(password);
       user.token = null;
       await user.save();
-      res.status(200).json({ message: 'Contraseña restaurada con éxito' });
+      res
+        .status(200)
+        .json({
+          message: 'Haz genereado tu nueva contraseña correctamente! 🎉',
+        });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -184,13 +190,15 @@ export class AuthController {
         user.password
       );
       if (!isPasswordCorrect) {
-        const error = new Error('La contraseña es incorrecta');
+        const error = new Error('La contraseña es incorrecta 😭');
         res.status(404).json({ error: error.message });
         return;
       }
       user.password = await hashPassword(newPassword);
       await user.save();
-      res.status(200).json({ message: 'Contraseña actualizada correctamente' });
+      res.status(200).json({
+        message: 'Haz genereado tu nueva contraseña correctamente! 🎉',
+      });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -202,7 +210,7 @@ export class AuthController {
       const user = await User.findByPk(req.user.id);
       const isPasswordCorrect = await comparePassword(password, user.password);
       if (!isPasswordCorrect) {
-        const error = new Error('La contraseña es incorrecta');
+        const error = new Error('La contraseña es incorrecta 😭');
         res.status(401).json({ error: error.message });
         return;
       }

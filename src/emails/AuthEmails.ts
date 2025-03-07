@@ -1,8 +1,5 @@
 import { transport } from '../config/nodemailer';
-<<<<<<< HEAD
 const { FRONTEND_URL } = process.env;
-=======
->>>>>>> 62ffcfc (agregate gmail account for sending emails)
 
 type EmailType = {
   name: string;
@@ -16,14 +13,8 @@ export class AuthEmail {
       from: 'CashTrackr <admin@cashtrackr.com>',
       to: user.email,
       subject: 'CashTrackr - Confirma tu cuenta',
-<<<<<<< HEAD
       html: `
-      <p>Hola ${user.name}. Has creado tu cuenta en CashTrackr, ya está casi lista.</p>
-      <p>Visita el siguiente enlace:</p>
-      <a href=${FRONTEND_URL}/auth/confirm-acount>Confirma tu cuenta</a>
-      <p>e ingresa el código: <b>${user.token}</b></p>
-=======
-      html: `<!DOCTYPE html>
+      <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -73,10 +64,6 @@ export class AuthEmail {
             border-radius: 5px;
             font-weight: bold;
         }
-        .button a {
-        text-decoration: none;
-        color: #ffffff;
-        }
         .button:hover {
             background: #0056b3;
         }
@@ -91,9 +78,9 @@ export class AuthEmail {
         <div class="content">
             <p>Hola <strong>${user.name}</strong>,</p>
             <p>Gracias por registrarte en <strong>CashTrackr</strong>. Para completar tu registro, haz clic en el siguiente botón:</p>
-            <a href="https://cash-trackr-frontend.vercel.app/auth/confirm-acount" target=_blank class="button">Confirmar Cuenta</a>
+            <a href="${FRONTEND_URL}/auth/confirm_acount" class="button">Confirmar Cuenta</a>
             <p>Si el botón no funciona, copia y pega el siguiente enlace en tu navegador:</p>
-            <p>https://cash-trackr-frontend.vercel.app/auth/confirm-acount</p>
+            <p>${FRONTEND_URL}/auth/confirm_acount</p>
             <p>También puedes ingresar el siguiente código de verificación:</p>
             <h3 style="color: #007bff;">${user.token}</h3>
         </div>
@@ -105,7 +92,6 @@ export class AuthEmail {
 
 </body>
 </html>
->>>>>>> 62ffcfc (agregate gmail account for sending emails)
       `,
     });
     console.log('email enviado con éxito', email.messageId);
@@ -117,12 +103,6 @@ export class AuthEmail {
       to: user.email,
       subject: 'CashTrackr - Reestablece tu Password',
       html: `
-<<<<<<< HEAD
-      <p>Hola ${user.name}. Has solicitado reestablecer tu password.</p>
-      <p>Visita el siguiente enlace:</p>
-      <a href=${FRONTEND_URL}/auth/new-password>Reestablecer Password</a>
-      <p>e ingresa el código: <b>${user.token}</b></p>
-=======
       <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -192,9 +172,9 @@ export class AuthEmail {
             <p>Hola <strong>${user.name}</strong>,</p>
             <p>Has solicitado restablecer tu contraseña en <strong>CashTrackr</strong>.</p>
             <p>Para continuar, haz clic en el siguiente botón:</p>
-            <a href="https://cash-trackr-frontend.vercel.app/auth/new-password" class="button">Restablecer Contraseña</a>
+            <a href=${FRONTEND_URL}/auth/new-password class="button">Restablecer Contraseña</a>
             <p>Si el botón no funciona, copia y pega el siguiente enlace en tu navegador:</p>
-            <p>https://cash-trackr-frontend.vercel.app/auth/new-password</p>
+            <p>${FRONTEND_URL}/auth/new-password</p>
             <p>También puedes usar el siguiente código de verificación:</p>
             <h3 style="color: #dc3545;">${user.token}</h3>
         </div>
@@ -206,7 +186,6 @@ export class AuthEmail {
 
 </body>
 </html>
->>>>>>> 62ffcfc (agregate gmail account for sending emails)
       `,
     });
     console.log('email enviado con éxito', email.messageId);

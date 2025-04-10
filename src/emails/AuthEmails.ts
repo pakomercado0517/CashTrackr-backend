@@ -185,9 +185,8 @@ export class AuthEmail {
     </div>
 
 </body>
-</html>
-      `,
+</html>`,
     });
     console.log('email enviado con éxito', email.messageId);
-  };
+};
 }
